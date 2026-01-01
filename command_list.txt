@@ -1,0 +1,13 @@
+uvicorn main:app --reload 
+//activate local server
+curl -X POST -H "Content-Type: application/json" 'http://127.0.0.1:8000/items?item=apple'
+// POST item in the items
+curl -X GET http://127.0.0.1:8000/items/0
+
+curl -X GET http://127.0.0.1:8000/items?limit=3
+
+Using Item model
+curl -X POST -H "Content-Type: application/json" -d '{"text":"apple"}' "http://127.0.0.1:8000/items"
+
+#Documentation URL
+http://127.0.0.1:8000/docs#/
