@@ -1,16 +1,13 @@
 from fastapi import FastAPI, HTTPException, File, UploadFile, Form
-from pydantic import BaseModel
 from pathlib import Path
 import uuid
+from schemas import Item
 
 app = FastAPI()
 items = []
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
-class Item(BaseModel):
-    text: str = None
-    is_done: bool = False
 
 @app.get("/")
 def root():
