@@ -1,8 +1,12 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile, Form
 from pydantic import BaseModel
+from pathlib import Path
+import uuid
 
 app = FastAPI()
 items = []
+UPLOAD_DIR = Path("uploads")
+UPLOAD_DIR.mkdir(exist_ok=True)
 
 class Item(BaseModel):
     text: str = None
@@ -27,3 +31,18 @@ def get_item(item_id:int) -> Item:
         return items[item_id]
     else:
         raise HTTPException(status_code=404, detail=f"Item {item_id} not found")
+    
+@app.post("/upload")
+def upload(file: UploadFile = File(...)):
+    try:
+        suffix = Path(file.filename).suffix.lower() or ".bin"
+        safe_name = f"{uuid.uuid4().hex}{suffix}"
+        save_path = UPLOAD_DIR / safe_name
+        contents = file.file.read()
+        save_path.write_bytes(contents)
+        return {"message": f"successfully uploaded {file.filename}"}
+    except Exception:
+            raise HTTPException(status_code=500, detail="Someting went wrong")
+    finally:
+        file.file.close()
+    
