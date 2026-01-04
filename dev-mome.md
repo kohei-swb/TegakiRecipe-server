@@ -25,3 +25,4 @@ Backgroundtasksを使う
 
 concurrent.futures.ProcessPoolExecutor() and asyncio to manage long running jobs.
 BackgroundTaskはよくなさそうだから上の方法かCeleryを使って管理した方がいいかも
+https://medium.com/@hitorunajp/celery-and-background-tasks-aebb234cae5d

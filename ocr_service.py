@@ -5,6 +5,8 @@ reader = easyocr.Reader(['ja'])
 
 
 def extract_ocr_text(dir_path:Path) -> list[Item]:
+    # return ingredients.json
+    # need to update uploads/recipe_id(job_id)/status.json
     files = list(dir_path.glob("*"))
     items = []
     for file in files:
