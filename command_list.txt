@@ -11,14 +11,3 @@ curl -X POST -H "Content-Type: application/json" -d '{"text":"apple"}' "http://1
 
 #Documentation URL
 http://127.0.0.1:8000/docs#/
-
-
-# start redis server on mac homebrew
-brew services start redis
-
-# checking whether redis server running
-redis-cli ping
-
-# stop and restart 
-brew services stop redis
-brew services restart redis

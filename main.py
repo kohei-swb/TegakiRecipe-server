@@ -21,7 +21,7 @@ def root():
     return {"Hello", "World"}
     
 @app.post("/jobs/{job_id}")
-def upload_recipes(
+async def upload_recipes(
         background_tasks: BackgroundTasks,
         recipe_name: str = Form(...),
         files: List[UploadFile] = File(...)

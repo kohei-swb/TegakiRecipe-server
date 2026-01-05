@@ -26,3 +26,16 @@ Backgroundtasksを使う
 concurrent.futures.ProcessPoolExecutor() and asyncio to manage long running jobs.
 BackgroundTaskはよくなさそうだから上の方法かCeleryを使って管理した方がいいかも
 https://medium.com/@hitorunajp/celery-and-background-tasks-aebb234cae5d
+
+
+async def upload_recipes(
+これのTry exceptを改善する
+
+エラーが出てるけど
+INFO:     127.0.0.1:63423 - "POST /jobs/%7Bjob_id%7D HTTP/1.1" 500 Internal Server Error
+だから原因追及をする
+
+def extract_ocr_text(dir_path:Path) -> list[Item]:
+    # return ingredients.json
+    # need to update uploads/recipe_id(job_id)/status.json
+これもする
