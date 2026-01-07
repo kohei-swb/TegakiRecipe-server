@@ -34,9 +34,10 @@ async def upload_recipes(
 実行してエラーが出たら直す
 
 1/6
-TODO: 
 動いてるけど、ingredients_resultのTextから具材を取り出さないと意味がない
 辞書　OR 形態素解析 → 辞書照合
 でもあとiosのUIも作らないといけないし、、、って考えると辞書照合だけで今はいい気がする
 辞書照合　で行く
 
+TODO: 
+iOSのUI

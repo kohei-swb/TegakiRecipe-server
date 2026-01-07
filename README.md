@@ -15,6 +15,7 @@ Designed as an MVP with a focus on clear API design, debuggability, and extensib
 ---
 
 ## API Design
+![API Overview](assets/api_overview.png)
 
 ### Create Job
 POST /jobs
@@ -35,20 +36,28 @@ Response example
 ### Get Job Status / Result
 GET /jobs/{job_id}
 
-Processing example
-
+#### While processing
+Returns current job status.
 {
   "job_id": "uuid",
   "status": "pending"
 }
 
-Done example
-
-{
-  "job_id": "uuid",
-  "status": "done",
-  "ingredients": ["egg", "potato", "onion"]
-}
+#### When finished
+Once the status is "done", the API returns the list of extracted ingredients with thier confidence rates
+![Actual OCR Result](assets/get_response.png)
+```json
+[
+  {
+    "text": "卵",
+    "conf_rate": 0.9557449090553382
+  },
+  {
+    "text": "こしょう",
+    "conf_rate": 0.8245881639348802
+  }
+]
+```
 
 ---
 
