@@ -6,7 +6,7 @@ import easyocr
 import json
 from pydantic import RootModel
 reader = easyocr.Reader(['ja']) 
-
+MASTER_INGREDIENT_FILE = 'master_ingredients.txt'
 # dir_path = /uploads/recipe_id(job_id)/
 def extract_ocr_text(dir_path:Path, recipe_id):
     if len(recipe_id) == 0:
@@ -26,15 +26,25 @@ def extract_ocr_text(dir_path:Path, recipe_id):
     
     Ingredients = RootModel[list[Ingredient]]
     ingredients = Ingredients([])
+    try:
+        with open(MASTER_INGREDIENT_FILE, 'r', encoding='utf-8') as f:
+            INGREDIENT_MASTER = set(f.read().splitlines())
+    except OSError as e:
+        raise OSError(f"master dictionary: {MASTER_INGREDIENT_FILE} cannot be opened") from e    
     for file in files:
         try:
             results = reader.readtext(str(file))
         except RuntimeError as e:
             raise RuntimeError(f"image file is empty in recipe_id:{recipe_id}") from e
+        intext_ingredients_map = {}
         for (bbox, text, prob) in results:
             if prob > 0.1:
-                # items.append(Ingredient(text=text, conf_rate=prob))
-                ingredients.root.append(Ingredient(text=text, conf_rate=prob))
+                for master in INGREDIENT_MASTER:
+                    if master in text:
+                        if master not in intext_ingredients_map or intext_ingredients_map[master] < prob:
+                            intext_ingredients_map[master] = prob
+        for k,v in intext_ingredients_map.items():
+            ingredients.root.append(Ingredient(text=k, conf_rate=v))
     ingredients_result = ingredients.model_dump_json(indent=2)
     try:
         (dir_path / "ingredients_result.json").write_text(ingredients_result)

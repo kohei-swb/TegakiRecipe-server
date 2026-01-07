@@ -27,9 +27,16 @@ concurrent.futures.ProcessPoolExecutor() and asyncio to manage long running jobs
 BackgroundTaskはよくなさそうだから上の方法かCeleryを使って管理した方がいいかも
 https://medium.com/@hitorunajp/celery-and-background-tasks-aebb234cae5d
 
-TODO: 
+
 async def upload_recipes(
 これのTry exceptを実装する
 
 実行してエラーが出たら直す
+
+1/6
+TODO: 
+動いてるけど、ingredients_resultのTextから具材を取り出さないと意味がない
+辞書　OR 形態素解析 → 辞書照合
+でもあとiosのUIも作らないといけないし、、、って考えると辞書照合だけで今はいい気がする
+辞書照合　で行く
 

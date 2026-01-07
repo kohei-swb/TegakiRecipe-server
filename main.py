@@ -31,21 +31,27 @@ async def upload_recipes(
     recipe_id = f"{uuid.uuid4().hex}"
     recipe_dir_path = Path(UPLOAD_DIR / recipe_id)
     image_dir = UPLOAD_DIR / recipe_id / "images"
-    # TODO: try-except if create dir cannot execute
-    recipe_dir_path.mkdir(exist_ok=True)
+    try:
+        recipe_dir_path.mkdir(exist_ok=True)
+    except OSError as e:
+        raise HTTPException(status_code=500, detail="failed to create recipe(job) directory") from e
     #create directory: image_dir | uploads/recipe_id/image
-    image_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        image_dir.mkdir(parents=True, exist_ok=True)
+    except OSError as e:
+        raise HTTPException(status_code=500, detail="failed to create image directory") from e
 
     # create meta data and save to uploads/recipe_id/meta.json
     meta_json = {
         "recipe_name":recipe_name,
-        "created_at":datetime.now(timezone.utc),
+        "created_at":datetime.now(timezone.utc).isoformat(),
         "image_count":len(files)
     }
     meta_path = (UPLOAD_DIR / recipe_id / "meta.json")
-    # TODO: try-except cannot write file
-    meta_path.write_text(json.dumps(meta_json, ensure_ascii=False))
-    
+    try:
+        meta_path.write_text(json.dumps(meta_json, ensure_ascii=False))
+    except OSError as e:
+        raise HTTPException(status_code=500, detail="failed to save meta_json") from e
     for i, file in enumerate(files):
             #uploading each files with unique name
             if file.filename is None:
@@ -55,19 +61,25 @@ async def upload_recipes(
             
             saved_file_name = f"{recipe_id}_{i}{suffix}"
             saved_file_path = UPLOAD_DIR / recipe_id / "images" / saved_file_name
-            #TODO: add try-except, contents is broken or cannot be read
-            contents = file.file.read()
-            #TODO: add try-except, cannot save the file
-            saved_file_path.write_bytes(contents)
-            file.file.close()
+            try:
+                contents = await file.read()
+            except OSError as e:
+                raise HTTPException(status_code=500, detail="Failed to read the image") from e
+            try:
+                saved_file_path.write_bytes(contents)
+            except OSError as e:
+                raise HTTPException(status_code=500, detail="Failed to save the image") from e
+            await file.close()
     # adding background task for auto polling
     background_tasks.add_task(extract_ocr_text, Path(UPLOAD_DIR / recipe_id), recipe_id)
     status = {
         "job_id":recipe_id,
         "status":"pending"
         }
-    #TODO: add try-except, cannot save the file
-    (recipe_dir_path / "status.json").write_text(json.dumps(status, ensure_ascii=False))
+    try:
+        (recipe_dir_path / "status.json").write_text(json.dumps(status, ensure_ascii=False))
+    except OSError as e:
+        raise HTTPException(status_code=500, detail="Failed to save the status") from e
     return status
     
     
