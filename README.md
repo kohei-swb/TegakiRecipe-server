@@ -101,6 +101,13 @@ uploads/
 
 ## Future Work
 
-- Replace background tasks with Celery and Redis
-- Ingredient normalization and quantity extraction
-- Persistent recipe storage
+### 🛠 System Improvements (Scalability & Data Integrity)
+- Replace background tasks with Celery and Redis (Scalable task queue)
+- Ingredient normalization and quantity extraction (Data cleaning)
+- Persistent recipe storage (Database integration)
+- **Enhanced NLP Filtering**: Leveraging my previous work on [NLP-Corpus-Analysis-Japanese](https://github.com/kohei-swb/NLP-Corpus-Analysis-Japanese) to implement morphological analysis for precise ingredient extraction.
+
+### ✨ Feature Roadmap (UX & Innovation)
+- Interactive Segmentation: Trace steps manually.
+- Device Syncing: iPhone for capture, iPad for cooking.
+- Hands-Free Navigation: Voice-controlled step progression.
