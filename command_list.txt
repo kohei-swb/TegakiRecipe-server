@@ -2,4 +2,16 @@
 #Documentation URL
 http://127.0.0.1:8000/docs#/
 
+# start server
 uvicorn main:app --reload 
+
+# create frontend project
+npx create-next-app@latest frontend
+
+
+# start frontend
+cd frontend 
+npm run dev
+
+# access frontend
+http://localhost:3000/ 

@@ -1,4 +1,20 @@
-venv/
-.env
+# --- Python (Backend) ---
+backend/venv/
+backend/*.py[cod]
+backend/.env
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# --- Next.js (Frontend) ---
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.env*
+frontend/.vercel
+
+# --- OS / IDE ---
+.DS_Store
+.vscode/
+.idea/
 __pycache__
-uploads/
