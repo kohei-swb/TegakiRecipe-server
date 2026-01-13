@@ -20,7 +20,7 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 def root():
     return {"Hello", "World"}
     
-@app.post("/jobs/{job_id}")
+@app.post("/jobs")
 async def upload_recipes(
         background_tasks: BackgroundTasks,
         recipe_name: str = Form(...),
