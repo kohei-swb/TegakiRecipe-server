@@ -93,10 +93,17 @@ uploads/
 ## Tech Stack
 
 - Python
+  - Best for prototype app
 - FastAPI
+  - Accelerate dev speed by doc feature to test APIs
 - EasyOCR
+  - Free and good for prototype
 - JSON file based state management
-
+  - Easy to manage structured data in specific format
+- Next js
+  - Providing basic setup for file organization/rounting, so I can focus more on logic 
+- Tailwind CSS
+  - This applicaiton maily focus on mobile user, so Making responsive website more easily is benefitial
 ---
 
 ## Future Work
