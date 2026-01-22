@@ -1,13 +1,14 @@
-export default function Home() {
+import Message from './Message';
+import ClientButton from '../components/AddRecipe'
+function Page(){
+   
   return (
-    <div>
-    <h1 className="text-3xl font-bold underline">
-       レシピ
-    </h1>
-    </div>
-    
-    // <button className = "bg-sky-500 disabled:hover:bg-sky--700 ...">
-    //   Save changes
-    // </button>
-  )
+  <>
+    <h1 className='text-4xl'>レシピ</h1>
+    <ClientButton />
+  </>
+ );
+ 
 }
+
+export default Page;
