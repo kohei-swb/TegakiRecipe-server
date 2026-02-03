@@ -40,4 +40,12 @@ async def upload_recipes(
 辞書照合　で行く
 
 TODO: 
-iOSのUI
+webのUI
+Add recipe: upload picture and retrieve the list of ingredients. API call
+
+
+ログイン認証
+ログインしたらユーザー情報とデータを照合して保存したレシピを表示させる：backend
+
+delete the recipe button
+create API
